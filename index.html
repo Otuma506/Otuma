@@ -17,10 +17,11 @@
         
         .card { background-color: var(--card); border-radius: 30px; padding: 25px; border: 1px solid #222; transition: 0.3s; }
         .product-img-box { background-color: #252525; border-radius: 20px; aspect-ratio: 1/1.2; overflow: hidden; margin-bottom: 20px; }
-        .product-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .product-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s ease; }
 
         .detail-gallery { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .detail-gallery img { width: calc(33.33% - 7px); border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #333; }
+        .detail-gallery img { width: calc(33.33% - 7px); border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #333; cursor: pointer; transition: 0.2s; }
+        .detail-gallery img:hover { border-color: var(--accent); opacity: 0.8; }
 
         .price { font-size: 1.8rem; font-weight: bold; margin-bottom: 5px; display: block; }
         .size-guide-btn { color: var(--accent); font-size: 0.8rem; text-decoration: underline; cursor: pointer; margin-bottom: 20px; display: inline-block; text-transform: uppercase; letter-spacing: 1px; }
@@ -67,12 +68,15 @@
 
     <div class="container">
         <div class="card" data-name="Vintage Dark" data-price="18500">
-            <div class="product-img-box"><img src="prelavada negra.jpg"></div>
+            <div class="product-img-box">
+                <img src="prelavada negra.jpg" id="main-img-negra">
+            </div>
             
             <div class="detail-gallery">
-                <img src="manga-negra.jpg.jpeg" alt="Manga">
-                <img src="cuello-negra-otuma.jpg.jpeg" alt="Cuello">
-                <img src="espalda-negra.jpg.jpeg" alt="Espalda">
+                <img src="manga-negra.jpg.jpeg" onclick="changeImage('main-img-negra', this.src)">
+                <img src="cuello-negra-otuma.jpg.jpeg" onclick="changeImage('main-img-negra', this.src)">
+                <img src="espalda-negra.jpg.jpeg" onclick="changeImage('main-img-negra', this.src)">
+                <img src="prelavada negra.jpg" onclick="changeImage('main-img-negra', this.src)" style="border-style: dashed;" alt="Reset">
             </div>
 
             <h3>VINTAGE DARK</h3>
@@ -87,12 +91,15 @@
         </div>
 
         <div class="card" data-name="Pure Cloud" data-price="18500">
-            <div class="product-img-box"><img src="overzise blanca.webp"></div>
+            <div class="product-img-box">
+                <img src="overzise blanca.webp" id="main-img-blanca">
+            </div>
 
             <div class="detail-gallery">
-                <img src="manga-blanca.jpg.jpeg" alt="Manga">
-                <img src="cuello-blanca-otuma.jpg.png" alt="Cuello">
-                <img src="espalda-blanca.jpg.jpeg" alt="Espalda">
+                <img src="manga-blanca.jpg.jpeg" onclick="changeImage('main-img-blanca', this.src)">
+                <img src="cuello-blanca-otuma.jpg.png" onclick="changeImage('main-img-blanca', this.src)">
+                <img src="espalda-blanca.jpg.jpeg" onclick="changeImage('main-img-blanca', this.src)">
+                <img src="overzise blanca.webp" onclick="changeImage('main-img-blanca', this.src)" style="border-style: dashed;" alt="Reset">
             </div>
 
             <h3>PURE CLOUD</h3>
@@ -130,6 +137,11 @@
     <script>
         let cart = [];
         let total = 0;
+
+        // NUEVA FUNCIÓN: Cambiar imagen principal
+        function changeImage(mainId, newSrc) {
+            document.getElementById(mainId).src = newSrc;
+        }
 
         function openModal() { document.getElementById('sizeModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('sizeModal').style.display = 'none'; }
@@ -187,7 +199,7 @@
             cart.forEach(item => { msg += `• ${item.name} (Talla: ${item.size})%0A`; });
             msg += `%0A*TOTAL: ₡${total.toLocaleString()}*%0A%0A¿Me pasan los datos del SINPE?`;
             
-            // CAMBIA EL NÚMERO AQUÍ (usa el formato 50688889999)
+            // PON TU NÚMERO AQUÍ (Formato 506XXXXXXXX)
             window.open(`https://wa.me/50664791651?text=${msg}`);
         }
     </script>
