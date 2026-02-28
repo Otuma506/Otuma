@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OTUMA | Streetwear Exclusivo Costa Rica</title>
     
-    <link rel="icon" type="image/jpeg" href="favicon.png.jpeg">
+    <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         :root { --accent: #25D366; --bg: #0d0d0d; --card: #161616; --text-dim: #888; --danger: #ff4444; }
@@ -74,7 +74,7 @@
 </head>
 <body>
 
-    <div class="promo-banner">🚚 ENVÍO GRATIS POR CORREOS AL COMPRAR 2 O MÁS PRENDAS</div>
+    <div class="promo-banner">ENVÍO GRATIS AL COMPRAR 2 O MÁS PRENDAS</div>
 
     <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
 
@@ -83,7 +83,7 @@
         <h2 style="font-size: 2rem; margin: 30px 0;">TU CARRITO</h2>
         <div id="cart-list" style="flex-grow:1; overflow-y:auto;"></div>
         
-        <div id="shipping-info" style="margin-bottom: 15px; font-size: 0.8rem; text-align: center;"></div>
+        <div id="shipping-info" style="margin-bottom: 15px; font-size: 0.85rem; text-align: center;"></div>
 
         <div style="font-size: 1.4rem; border-top: 1px solid #222; padding: 20px 0; display: flex; justify-content: space-between; font-weight: bold;">
             <span>TOTAL:</span>
@@ -195,7 +195,7 @@
             const cantidadEnCarrito = cart.filter(item => item.name === name && item.size === talla).length;
 
             if (cantidadEnCarrito >= 5) {
-                alert("¡Límite alcanzado! Solo 5 unidades por talla.");
+                alert("Límite alcanzado: 5 unidades por talla.");
                 return;
             }
 
@@ -225,9 +225,8 @@
                 </div>`;
             });
 
-            // Lógica de Envío Gratis
             if (cart.length >= 2) {
-                shipInfo.innerHTML = `<span style="color:var(--accent); font-weight:bold;">✅ ¡ENVÍO GRATIS POR CORREOS APLICADO!</span>`;
+                shipInfo.innerHTML = `<span style="color:var(--accent); font-weight:bold;">✅ ENVÍO GRATIS</span>`;
             } else if (cart.length === 1) {
                 shipInfo.innerHTML = `<span style="color:#888;">Agrega 1 prenda más para envío GRATIS</span>`;
             } else {
@@ -242,18 +241,15 @@
 
         function sendWhatsApp() {
             if (cart.length === 0) return;
-            let msg = "¡Pura vida OTUMA! Deseo reservar estas piezas:%0A%0A";
+            let msg = "¡Pura vida OTUMA! Deseo estas piezas:%0A%0A";
             cart.forEach(item => { msg += `• ${item.name} - Talla ${item.size}%0A`; });
-            
             msg += `%0A*TOTAL: ₡${total.toLocaleString()}*`;
             
             if (cart.length >= 2) {
-                msg += `%0A%0A*PROMO:* ¡Envío gratis por Correos incluido! 🚚`;
+                msg += `%0A%0A*PROMO:* ¡ENVÍO GRATIS! 🚚`;
             }
             
-            msg += `%0A%0A¿Me confirman disponibilidad para envío?`;
-            
-            // Reemplaza el 50680000000 por tu número real
+            // Pon tu número real aquí
             window.open(`https://wa.me/50664791651?text=${msg}`);
         }
     </script>
