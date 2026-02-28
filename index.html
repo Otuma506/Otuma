@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OTUMA | DROP 001</title>
     
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/jpeg" href="favicon.png.jpeg">
 
     <style>
-        :root { --accent: #25D366; --bg: #0d0d0d; --card: #161616; --text-dim: #888; }
+        :root { --accent: #25D366; --bg: #0d0d0d; --card: #161616; --text-dim: #888; --danger: #ff4444; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg); color: #ffffff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 0; overflow-x: hidden; }
         
@@ -16,38 +16,57 @@
         h1 { font-size: 3rem; letter-spacing: 10px; text-transform: uppercase; margin: 0; font-weight: 900; }
         .drop-banner { background-color: #fff; color: #000; display: inline-block; padding: 4px 12px; font-weight: 900; font-size: 0.7rem; letter-spacing: 3px; margin-top: 10px; }
 
+        /* Efecto de parpadeo para el stock */
+        @keyframes pulse-red {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.98); box-shadow: 0 0 10px rgba(255, 68, 68, 0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .stock-tag { 
+            background: var(--danger); 
+            color: white; 
+            font-size: 0.65rem; 
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            display: inline-block; 
+            margin-bottom: 15px; 
+            font-weight: bold; 
+            letter-spacing: 1px;
+            animation: pulse-red 2s infinite ease-in-out;
+        }
+
         .container { max-width: 1000px; margin: auto; width: 92%; display: grid; grid-template-columns: 1fr; gap: 40px; padding-top: 20px; }
         @media (min-width: 768px) { .container { grid-template-columns: 1fr 1fr; } h1 { font-size: 4.5rem; letter-spacing: 18px; } }
         
-        .card { background-color: var(--card); border-radius: 30px; padding: 25px; border: 1px solid #222; transition: 0.3s; }
+        .card { background-color: var(--card); border-radius: 30px; padding: 25px; border: 1px solid #222; position: relative; }
         .product-img-box { background-color: #252525; border-radius: 20px; aspect-ratio: 1/1.2; overflow: hidden; margin-bottom: 20px; }
-        .product-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s ease; }
+        .product-img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        .detail-gallery { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .detail-gallery img { width: calc(33.33% - 7px); border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #333; cursor: pointer; }
-        .detail-gallery img:hover { border-color: var(--accent); }
+        .detail-gallery { display: flex; gap: 8px; margin-bottom: 20px; }
+        .detail-gallery img { width: 25%; border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #333; cursor: pointer; }
 
         .price { font-size: 1.8rem; font-weight: bold; margin-bottom: 5px; display: block; }
-        .size-guide-btn { color: var(--accent); font-size: 0.8rem; text-decoration: underline; cursor: pointer; margin-bottom: 20px; display: inline-block; text-transform: uppercase; }
+        .size-guide-btn { color: var(--accent); font-size: 0.7rem; text-decoration: underline; cursor: pointer; margin-bottom: 20px; display: inline-block; text-transform: uppercase; }
         
-        .size-row { display: flex; gap: 12px; margin-bottom: 25px; justify-content: center; }
-        .s-circle { width: 50px; height: 50px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #1a1a1a; transition: 0.2s; }
+        .size-row { display: flex; gap: 12px; margin-bottom: 20px; justify-content: center; }
+        .s-circle { width: 45px; height: 45px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #1a1a1a; }
         .s-selected { background-color: var(--accent) !important; color: #000 !important; font-weight: 900; border-color: var(--accent) !important; }
 
-        .add-btn { background-color: var(--accent); color: #000; border: none; width: 100%; padding: 20px; border-radius: 20px; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .add-btn { background-color: var(--accent); color: #000; border: none; width: 100%; padding: 18px; border-radius: 15px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
 
-        .cart-icon { position: fixed; bottom: 25px; right: 25px; background: var(--accent); color: #000; padding: 15px 25px; border-radius: 50px; cursor: pointer; z-index: 1000; font-weight: 900; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .cart-icon { position: fixed; bottom: 25px; right: 25px; background: var(--accent); color: #000; padding: 15px 20px; border-radius: 50px; cursor: pointer; z-index: 1000; font-weight: 900; }
         
         #cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: #0a0a0a; transition: 0.4s; z-index: 2000; padding: 30px; display: flex; flex-direction: column; }
-        @media (min-width: 500px) { #cart-sidebar { width: 400px; right: -400px; } }
         #cart-sidebar.open { right: 0; }
+        @media (min-width: 500px) { #cart-sidebar { width: 400px; right: -400px; } }
         
-        .checkout-btn { background: var(--accent); color: #000; text-decoration: none; text-align: center; padding: 22px; border-radius: 20px; margin-top: auto; font-weight: 900; }
+        .checkout-btn { background: var(--accent); color: #000; text-decoration: none; text-align: center; padding: 20px; border-radius: 15px; margin-top: auto; font-weight: 900; }
 
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #161616; padding: 30px; border-radius: 30px; width: 100%; max-width: 400px; }
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; }
+        .modal-content { background: #161616; padding: 30px; border-radius: 30px; width: 90%; max-width: 400px; border: 1px solid #333; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #333; padding: 15px; text-align: center; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: center; }
 
         .main-footer { background-color: #000; padding: 60px 20px; text-align: center; margin-top: 50px; border-top: 1px solid #222; }
     </style>
@@ -57,23 +76,25 @@
     <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
 
     <div id="cart-sidebar">
-        <div style="cursor:pointer; color: var(--accent); font-weight: bold;" onclick="toggleCart()">✕ VOLVER</div>
-        <h2 style="font-size: 2rem; margin: 20px 0;">TU PEDIDO</h2>
+        <div style="cursor:pointer; color: var(--accent); font-weight: bold; letter-spacing: 1px;" onclick="toggleCart()">✕ CERRAR</div>
+        <h2 style="font-size: 2rem; margin: 30px 0;">TU CARRITO</h2>
         <div id="cart-list" style="flex-grow:1; overflow-y:auto;"></div>
-        <div style="font-size: 1.5rem; border-top: 1px solid #222; padding: 20px 0; display: flex; justify-content: space-between;">
+        <div style="font-size: 1.4rem; border-top: 1px solid #222; padding: 20px 0; display: flex; justify-content: space-between; font-weight: bold;">
             <span>TOTAL:</span>
             <span>₡<span id="total-price">0</span></span>
         </div>
-        <a href="#" class="checkout-btn" onclick="sendWhatsApp()">PEDIR POR WHATSAPP</a>
+        <a href="#" class="checkout-btn" onclick="sendWhatsApp()">FINALIZAR POR WHATSAPP</a>
     </div>
 
     <header>
         <h1>OTUMA</h1>
-        <div class="drop-banner">DROP 001 / CORE COLLECTION</div>
+        <div class="drop-banner">DROP 001 / EDICIÓN LIMITADA</div>
     </header>
 
     <div class="container">
         <div class="card" data-name="Vintage Dark" data-price="18500">
+            <div class="stock-tag">SOLO 15 UNIDADES DISPONIBLES</div>
+            
             <div class="product-img-box">
                 <img src="prelavada negra.jpg" id="img-negra">
             </div>
@@ -85,18 +106,25 @@
                 <img src="espalda-negra.jpg.jpeg" onclick="changeImg('img-negra', this.src)">
             </div>
 
-            <h3>VINTAGE DARK</h3>
+            <h3 style="margin: 0 0 5px 0;">VINTAGE DARK</h3>
+            <p style="color: var(--text-dim); font-size: 0.75rem; margin-bottom: 15px; letter-spacing: 1px;">PRE-LAVADA / 100% ALGODÓN</p>
+            
             <span class="price">₡18,500</span>
-            <span class="size-guide-btn" onclick="openModal()">Guía de Tallas</span>
+            <span class="size-guide-btn" onclick="openModal()">Ver Tabla de Tallas</span>
+            
             <div class="size-row">
                 <div class="s-circle" onclick="selectSize(this)">S</div>
                 <div class="s-circle" onclick="selectSize(this)">M</div>
                 <div class="s-circle" onclick="selectSize(this)">L</div>
             </div>
+            <p style="text-align: center; font-size: 0.65rem; color: var(--danger); margin-top: -10px; margin-bottom: 20px; font-weight: bold;">⚠️ MÁXIMO 5 POR TALLA</p>
+            
             <button class="add-btn" onclick="addToCart(this)">Añadir al carrito</button>
         </div>
 
         <div class="card" data-name="Pure Cloud" data-price="18500">
+            <div class="stock-tag">SOLO 15 UNIDADES DISPONIBLES</div>
+            
             <div class="product-img-box">
                 <img src="overzise blanca.webp" id="img-blanca">
             </div>
@@ -108,28 +136,34 @@
                 <img src="espalda-blanca.jpg.jpeg" onclick="changeImg('img-blanca', this.src)">
             </div>
 
-            <h3>PURE CLOUD</h3>
+            <h3 style="margin: 0 0 5px 0;">PURE CLOUD</h3>
+            <p style="color: var(--text-dim); font-size: 0.75rem; margin-bottom: 15px; letter-spacing: 1px;">OVERSIZE / HEAVY COTTON</p>
+            
             <span class="price">₡18,500</span>
-            <span class="size-guide-btn" onclick="openModal()">Guía de Tallas</span>
+            <span class="size-guide-btn" onclick="openModal()">Ver Tabla de Tallas</span>
+            
             <div class="size-row">
                 <div class="s-circle" onclick="selectSize(this)">S</div>
                 <div class="s-circle" onclick="selectSize(this)">M</div>
                 <div class="s-circle" onclick="selectSize(this)">L</div>
             </div>
+            <p style="text-align: center; font-size: 0.65rem; color: var(--danger); margin-top: -10px; margin-bottom: 20px; font-weight: bold;">⚠️ MÁXIMO 5 POR TALLA</p>
+            
             <button class="add-btn" onclick="addToCart(this)">Añadir al carrito</button>
         </div>
     </div>
 
     <footer class="main-footer">
-        <h2 style="letter-spacing: 10px;">OTUMA</h2>
-        <p style="color: var(--text-dim);">Streetwear premium hecho en Costa Rica 🇨🇷</p>
+        <h2 style="letter-spacing: 12px; margin-bottom: 5px;">OTUMA</h2>
+        <p style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 25px;">DROP 001 - COLECCIÓN LIMITADA 2026</p>
+        <p style="font-size: 0.7rem; opacity: 0.5;">San José, Costa Rica 🇨🇷</p>
     </footer>
 
     <div id="sizeModal" class="modal">
         <div class="modal-content">
-            <div style="display:flex; justify-content:space-between;">
-                <h3>GUÍA DE TALLAS (cm)</h3>
-                <span style="cursor:pointer; font-size: 1.5rem;" onclick="closeModal()">✕</span>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="margin:0;">GUÍA OVERSIZE (cm)</h3>
+                <span style="cursor:pointer; font-size: 1.8rem;" onclick="closeModal()">✕</span>
             </div>
             <table>
                 <tr><th>Talla</th><th>Ancho</th><th>Largo</th></tr>
@@ -161,12 +195,18 @@
             const price = parseInt(card.getAttribute('data-price'));
             const sizeEl = card.querySelector('.s-selected');
 
-            if (!sizeEl) { alert("Selecciona una talla primero"); return; }
+            if (!sizeEl) { alert("Por favor, selecciona una talla primero."); return; }
 
             cart.push({ name, price, size: sizeEl.innerText });
             updateCart();
-            btn.innerText = "¡AÑADIDO! ✓";
-            setTimeout(() => { btn.innerText = "Añadir al carrito"; }, 1000);
+            
+            const oldText = btn.innerText;
+            btn.innerText = "¡AÑADIDO!";
+            btn.style.backgroundColor = "#fff";
+            setTimeout(() => { 
+                btn.innerText = oldText; 
+                btn.style.backgroundColor = "var(--accent)";
+            }, 1000);
         }
 
         function updateCart() {
@@ -175,9 +215,9 @@
             cart.forEach((item, index) => {
                 total += item.price;
                 list.innerHTML += `
-                <div style="display:flex; justify-content:space-between; margin-bottom:15px; background:#1a1a1a; padding:15px; border-radius:15px;">
-                    <div><b>${item.name}</b><br><small>Talla: ${item.size}</small></div>
-                    <div style="text-align:right">₡${item.price.toLocaleString()}<br><span style="color:red; cursor:pointer;" onclick="removeItem(${index})">Quitar</span></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:20px; background:#1a1a1a; padding:15px; border-radius:15px; border: 1px solid #333;">
+                    <div><b>${item.name}</b><br><small style="color:var(--accent)">Talla: ${item.size}</small></div>
+                    <div style="text-align:right">₡${item.price.toLocaleString()}<br><span style="color:var(--danger); font-size:0.7rem; cursor:pointer;" onclick="removeItem(${index})">Eliminar</span></div>
                 </div>`;
             });
             document.getElementById('total-price').innerText = total.toLocaleString();
@@ -188,11 +228,11 @@
 
         function sendWhatsApp() {
             if (cart.length === 0) return;
-            let msg = "¡Pura vida OTUMA! Me interesa este pedido:%0A%0A";
-            cart.forEach(item => { msg += `• ${item.name} (Talla: ${item.size})%0A`; });
-            msg += `%0A*TOTAL: ₡${total.toLocaleString()}*%0A%0A¿Me pasan los datos del SINPE?`;
+            let msg = "¡Pura vida OTUMA! Deseo reservar estas piezas del DROP 001:%0A%0A";
+            cart.forEach(item => { msg += `• ${item.name} - Talla ${item.size}%0A`; });
+            msg += `%0A*TOTAL A PAGAR: ₡${total.toLocaleString()}*%0A%0A¿Me confirman si hay stock disponible para envío?`;
             
-            // CAMBIA EL NÚMERO AQUÍ ABAJO
+            // PON TU NÚMERO AQUÍ (Formato 506XXXXXXXX)
             window.open(`https://wa.me/50664791651?text=${msg}`);
         }
     </script>
