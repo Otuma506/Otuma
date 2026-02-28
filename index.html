@@ -19,7 +19,6 @@
         .product-img-box { background-color: #252525; border-radius: 20px; aspect-ratio: 1/1.2; overflow: hidden; margin-bottom: 20px; }
         .product-img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Estilo de la Galería Detallada */
         .detail-gallery { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         .detail-gallery img { width: calc(33.33% - 7px); border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #333; }
 
@@ -71,9 +70,9 @@
             <div class="product-img-box"><img src="prelavada negra.jpg"></div>
             
             <div class="detail-gallery">
-                <img src="manga-negra.jpg" alt="Manga">
-                <img src="cuello-negra-otuma.jpg" alt="Cuello">
-                <img src="espalda-negra.jpg" alt="Espalda">
+                <img src="manga-negra.jpg.jpeg" alt="Manga">
+                <img src="cuello-negra-otuma.jpg.jpeg" alt="Cuello">
+                <img src="espalda-negra.jpg.jpeg" alt="Espalda">
             </div>
 
             <h3>VINTAGE DARK</h3>
@@ -91,9 +90,9 @@
             <div class="product-img-box"><img src="overzise blanca.webp"></div>
 
             <div class="detail-gallery">
-                <img src="manga-blanca.jpg" alt="Manga">
-                <img src="cuello-blanca-otuma.jpg" alt="Cuello">
-                <img src="espalda-blanca.jpg" alt="Espalda">
+                <img src="manga-blanca.jpg.jpeg" alt="Manga">
+                <img src="cuello-blanca-otuma.jpg.png" alt="Cuello">
+                <img src="espalda-blanca.jpg.jpeg" alt="Espalda">
             </div>
 
             <h3>PURE CLOUD</h3>
@@ -187,7 +186,9 @@
             let msg = "¡Pura vida OTUMA! Me interesa este pedido:%0A%0A";
             cart.forEach(item => { msg += `• ${item.name} (Talla: ${item.size})%0A`; });
             msg += `%0A*TOTAL: ₡${total.toLocaleString()}*%0A%0A¿Me pasan los datos del SINPE?`;
-            window.open(`https://wa.me/50664791651?text=${msg}`); // Cambia el número aquí
+            
+            // CAMBIA EL NÚMERO AQUÍ (usa el formato 50688889999)
+            window.open(`https://wa.me/50664791651?text=${msg}`);
         }
     </script>
 </body>
